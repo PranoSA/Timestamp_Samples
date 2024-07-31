@@ -82,11 +82,6 @@ timer_tz TIMESTAMP WITH TIME ZONE
 				return
 			}
 
-			//convert the timestamp to UTC
-			//result.Created = result.Created.UTC()
-			result.Timestamp_TZ = result.Timestamp_TZ.UTC()
-
-
 			results = append(results, result)
 		}
 	
@@ -99,12 +94,8 @@ timer_tz TIMESTAMP WITH TIME ZONE
 func main(){
 
 	// start connection to postgres
-	//host = localhost, port = 5432, user = postgres, password = password, dbname = test
-	//db, err := sql.Open("postgres", "host=localhost port=5432 user=postgres password=password dbname=test sslmode=disable")
 
-
-	//postgres://jack:secret@pg.example.com:5432/mydb?sslmode=verify-ca&pool_max_conns=10
-	conn_string := "postgres://username:password@localhost:5432/spring_timestamp?sslmode=disable&options=-c%20timezone=America%2New_York"
+	conn_string := "postgres://username:password@localhost:5432/spring_timestamp?sslmode=disable"
 
 	//using pgxpool
 	//config, err := pgxpool.ParseConfig("host=localhost port=5432 user=username password=password dbname=spring_timestamp sslmode=disable options='-c timezone=UCT'")
@@ -113,14 +104,6 @@ func main(){
 		panic(err)
 	}
 
-	config.ConnConfig.RuntimeParams["timezone"] = "UTC"
-	config.ConnConfig.RuntimeParams["TimeZone"] = "UTC"
-	config.ConnConfig.Config.RuntimeParams["timezone"] = "UTC"
-	config.ConnConfig.Config.RuntimeParams["TimeZone"] = "UTC"
-	//still PDT for some reason
-	//config.ConnConfig.RuntimeParams["timezone"] = "PDT"
-	config.ConnConfig.Config.RuntimeParams["timezone"] = "UTC"
-	
 
 	pool, err := pgxpool.NewWithConfig(context.Background(), config)
 	if err != nil {
@@ -138,35 +121,10 @@ func main(){
 		panic(err)
 	}
 
-	// Create A Timestamp, using PDT
-	timestamp := time.Date(2021, time.March, 14, 1, 59, 59, 0, time.FixedZone("PDT", -7*60*60))
-
-
 	// start listening to the http server
 	http.HandleFunc("/insert", insertTimestamp)
 	http.HandleFunc("/get", getTimestamp)
 
 	http.ListenAndServe(":8080", nil)
 
-
-	// Insert the timestamp into the database
-	_, err = pool.Exec(context.Background(), "INSERT INTO test_table (timestamp) VALUES ($1)", timestamp)
-
-	if err != nil {
-		panic(err)
-	}
-
-	// Query the database for the timestamp
-	var result time.Time
-
-	err = pool.QueryRow(context.Background(), "SELECT timestamp FROM test_table").Scan(&result)
-
-	if err != nil {
-		panic(err)
-	}
-
 }
-
-/*
-
-*/
