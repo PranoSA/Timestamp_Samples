@@ -1,0 +1,91 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+# Maven target directory
+/target/
+
+# Eclipse specific files
+.classpath
+.project
+.settings/
+
+# IntelliJ IDEA specific files
+.idea/
+*.iml
+*.iws
+
+# NetBeans specific files
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# VS Code specific files
+.vscode/
+
+# macOS specific files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux specific files
+*~
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Generated files
+generated/
+
+# Maven specific files
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar

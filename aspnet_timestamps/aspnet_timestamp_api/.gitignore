@@ -1,0 +1,9 @@
+# gitignore for dotnet rest api
+# ignore bin and obj folders
+
+bin/
+obj/
+
+#ignore .dist
+dist/
+.dist/

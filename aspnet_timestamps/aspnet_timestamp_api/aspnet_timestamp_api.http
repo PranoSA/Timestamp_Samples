@@ -1,0 +1,6 @@
+@aspnet_timestamp_api_HostAddress = http://localhost:5072
+
+GET {{aspnet_timestamp_api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
